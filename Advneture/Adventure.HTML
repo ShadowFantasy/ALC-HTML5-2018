@@ -8,38 +8,34 @@
         <h1>Adventure Game v1.0</h1>
         <p>Made by: Jaedon Lippert</p>
         <script>
-            //Java Script sing line comment out
-            /*Multi line comment out*/
             
-/*            alert("Robot: 'Ding, fries are done!'");
-            confirm("Are you going eat that?");
-            prompt("Did you like it?");
-            confirm("Are there more fries?");
-            alert("Their are more fries! I want some");
-            prompt("Can I have them... please? 'w'");
-            var favFood = "Pizza";
-            var favNumber = 10;
-            var percent = 0.25;
-            */
+            Start();
             
-            var favColor = prompt("What is your favorite color?").toLowerCase();
-            //if(favColor == "blue" || favColor == "Blue");
-            if(favColor == "blue"){
-                alert("The sky is blue");
-            }
-            else if(favColor == "red"){
-                alert("Red equals love!");
-            }
-            else if(favColor == "yellow"){
-                alert("Yellow is the color of the light!");
-            }
-            else if(favColor == "green"){
-                alert("Ooooh! The color of life!");
-            }
-            else{
-                alert(favColor + " is not a Color");
-            }
+            function Start(){
+                alert("You wake up in a small dark room... you hear a voice close by but you can't see who's there.");
+               
+                var playerName = prompt("???: 'Hello? oh you're awake! Thank goodness, my name is Lily. What's your name?'");
                 
+                var startGame = confirm("Lily: 'That's a nice name, we should probably get out of here. Do you think you can get up?");
+                
+                if(startgame){
+                    GetUp();
+                }
+                else{
+                    alert("Lily: 'Okay, I'll let you rest for a while longer'");
+                }
+            } 
+            
+            function GetUp(){
+                var getUp = prompt("You shakily get up, your eyes adjust to the darkness and you can make out what looks like a small box, a crowbar, and a boarded up door.").toLowerCase();
+                
+                switch(getUp){
+                    case "crate" || "small box":
+                            }
+            }
+            
+            
+            
         </script>
     </body>
 </html>

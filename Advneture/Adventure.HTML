@@ -8,29 +8,47 @@
         <h1>Adventure Game v1.0</h1>
         <p>Made by: Jaedon Lippert</p>
         <script>
-            
+            //This starts the Start Function
             Start();
             
+            //this creates the Start Function
             function Start(){
                 alert("You wake up in a small dark room... you hear a voice close by but you can't see who's there.");
                
                 var playerName = prompt("???: 'Hello? oh you're awake! Thank goodness, my name is Lily. What's your name?'");
                 
-                var startGame = confirm("Lily: 'That's a nice name, we should probably get out of here. Do you think you can get up?");
+                var startGame = confirm("Lily: '" + playerName + "... That's a nice name. We should probably get out of here. Do you think you can get up?'");
                 
-                if(startgame){
+                if(startGame){
+                    //This starts the GetUp function
                     GetUp();
                 }
                 else{
-                    alert("Lily: 'Okay, I'll let you rest for a while longer'");
+                    alert("Lily: 'Okay, I'll let you rest for a while longer.' The silence returns and you close your eyes and go back into a deep and seemingly endless sleep.");
                 }
             } 
-            
+            //This creates the GetUp function
             function GetUp(){
                 var getUp = prompt("You shakily get up, your eyes adjust to the darkness and you can make out what looks like a small box, a crowbar, and a boarded up door.").toLowerCase();
                 
                 switch(getUp){
-                    case "crate" || "small box":
+                        //Message that returns depending what the user types
+                    case "small box":
+                        alert("Something rustles within the box. You currently don't have any means of opening the box");
+                        GetUp();
+                    break;
+                    case "crowbar":
+                        
+                        /*var pickUp = confirm("The crowbar looks like it could open something, pick it up?");
+                        if (pickUp){
+                        }*/
+                    
+                        //Message that returns when an invalid action is submitted, then restarts GetUp
+                    default:
+                        alert("Unfortuneatly you have no idea what that means");
+                        GetUp();
+                    break;
+                        
                             }
             }
             

@@ -7,12 +7,27 @@
     <body>
         <h1>Adventure Game v1.0</h1>
         <p>Made by: Jaedon Lippert</p>
-        <script>
+        <script>            
+            //------GLOBAL VARIABLES DECLARED------//
+           var inventory = {
+                crowbar:0,
+                money:10.50,
+                lily:0
+            }
+           var inventoryDisplay = ("--Inventory--" + "\n" +
+                                   "Crowbar: " + inventory.crowbar + "\n" +
+                                   "Money: $" + inventory.money + "\n" +
+                                   "-------------");
+            //------CODE------//
             //This starts the Start Function
             Start();
-            
+
+            //------FUNCTIONS DECLARED------//
             //this creates the Start Function
             function Start(){
+                //---START VARIABLES---//
+                //---START CODE---//
+                
                 alert("You wake up in a small dark room... you hear a voice close by but you can't see who's there.");
                
                 var playerName = prompt("???: 'Hello? oh you're awake! Thank goodness, my name is Lily. What's your name?'");
@@ -26,30 +41,77 @@
                 else{
                     alert("Lily: 'Okay, I'll let you rest for a while longer.' The silence returns and you close your eyes and go back into a deep and seemingly endless sleep.");
                 }
-            } 
+                
+            }//end of Start function
             //This creates the GetUp function
             function GetUp(){
                 var getUp = prompt("You shakily get up, your eyes adjust to the darkness and you can make out what looks like a small box, a crowbar, and a boarded up door.").toLowerCase();
-                
-                switch(getUp){
-                        //Message that returns depending what the user types
-                    case "small box":
-                        alert("Something rustles within the box. You currently don't have any means of opening the box");
-                        GetUp();
-                    break;
-                    case "crowbar":
-                        
-                        /*var pickUp = confirm("The crowbar looks like it could open something, pick it up?");
-                        if (pickUp){
-                        }*/
-                    
-                        //Message that returns when an invalid action is submitted, then restarts GetUp
-                    default:
-                        alert("Unfortuneatly you have no idea what that means");
-                        GetUp();
-                    break;
-                        
+                    switch(getUp){
+                            //Message that returns depending what the user types
+                        case "inventory":
+                            alert(inventoryDisplay);
+                            GetUp();
+                            break;
+                            
+                        case "small box": //Obtain Lily
+                            if(inventory.lily <= 0){
+                            var actionCrate = confirm("Something rustles within the box, open it?");
+                                if(actionCrate && inventory.crowbar >= 1){
+                                    alert("A small mechanical ball shaped object floated of the box and hovered infront of you. \n" + "Lily: 'Thank you, for helping me I will try to guide you out of this place.' \n" + "The ball shapped machine hovered for a little long before putting itself in your pocket.");
+                                    inventory.lily += 1;
+                                }
+                                else{
+                                    if(inventory.crowbar <= 0){
+                                        alert("You don't have anything to open the box with.");
+                                    }
+                                    else{
+                                        alert("The small lonely box seemed to shiver in the cold air as you left it there.");
+                                    }
+                                }
                             }
+                            else{
+                                alert("The box was wide open and had nothing else inside");
+                            }
+                            GetUp();
+                        break;
+                            
+                        case "crowbar":
+                            if(inventory.crowbar <= 0){
+                                var pickUpCrowbar = confirm("The crowbar looks like it could open something pretty neat");
+                                if(pickUpCrowbar){
+                                    alert("BADADADA! You got a crowbar... a little anticlimactic if you as me.");
+                                    inventory.crowbar += 1;
+                                }
+                                else{
+                                    alert("You abandon the crowbar and leave it on the cold lonely ground.");
+                                }
+                            }
+                            else{
+                                alert("You stare at the crowbar in your hands... it stares back. Spooky.");
+                            }
+                            /*var pickUp = confirm("The crowbar looks like it could open something, pick it up?");
+                            if (pickUp){
+                            }*/
+                            GetUp();
+                        break;
+                            
+                        case "door":
+                            if(inventory.crowbar >= 1){
+                                DarkHall();
+                            }
+                            else{
+                                alert("The wooden boards seem to be blocking you from leaving this room.");
+                            }
+                        break;
+                            //Message that returns when an invalid action is submitted, then restarts GetUp
+                        default:
+                            alert("Unfortuneatly you have no idea what that means");
+                            GetUp();
+                            break;
+                                }
+            }//End of GetUp function
+            function DarkHall(){
+                var enterHall = prompt("You close the door behind you. There is a dark endless hallway infront of you and you can barely see a thing";
             }
             
             
@@ -57,3 +119,15 @@
         </script>
     </body>
 </html>
+
+<!--
+<script>
+    /*
+    var global; <--- This variable is declared outside a function and can be reached anywhere
+    
+    function Village(){
+    var local; <--- however this variable is declared in a function and can only be used in that function.
+    }
+    */
+</script>
+-->

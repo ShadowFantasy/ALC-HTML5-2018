@@ -33,7 +33,6 @@
                 var playerName = prompt("???: 'Hello? oh you're awake! Thank goodness, my name is Lily. What's your name?'");
                 
                 var startGame = confirm("Lily: '" + playerName + "... That's a nice name. We should probably get out of here. Do you think you can get up?'");
-                
                 if(startGame){
                     //This starts the GetUp function
                     GetUp();
@@ -45,7 +44,7 @@
             }//end of Start function
             //This creates the GetUp function
             function GetUp(){
-                var getUp = prompt("You shakily get up, your eyes adjust to the darkness and you can make out what looks like a small box, a crowbar, and a boarded up door.").toLowerCase();
+                var getUp = prompt("You shakily get up, your eyes adjust to the darkness and you can make out what looks like a -small box-, a -crowbar-, and a boarded up -door-.").toLowerCase();
                     switch(getUp){
                             //Message that returns depending what the user types
                         case "inventory":
@@ -97,10 +96,11 @@
                             
                         case "door":
                             if(inventory.crowbar >= 1){
-                                DarkHall();
+                                DarkHall(inventory.lily);
                             }
                             else{
                                 alert("The wooden boards seem to be blocking you from leaving this room.");
+                                GetUp();
                             }
                         break;
                             //Message that returns when an invalid action is submitted, then restarts GetUp
@@ -108,12 +108,41 @@
                             alert("Unfortuneatly you have no idea what that means");
                             GetUp();
                             break;
-                                }
+                                }// End of GetUp
             }//End of GetUp function
-            function DarkHall(){
-                var enterHall = prompt("You close the door behind you. There is a dark endless hallway infront of you and you can barely see a thing";
-            }
-            
+            function DarkHall(speak){
+                if(speak >= 1){
+                    var enterHall = prompt("You close the door behind you. There is a dark endless hallway infront of you and you can barely see a thing. \n" + "Lily:'I don't like it here. It's cold.' You felt the small metalic orb shiver in your pocket. 'Just go down straight down the hall. I don't think it's a good idea to stay here too long.' \n" + "There is a -door behind- you, there are two doors up ahead, a -left door- and a -right door-, and then a -long hall- ahead of you").toLowerCase;
+                }
+                else{
+                    var enterHall = prompt("You close the door behind you. There is a dark endless hallway infront of you and you can barely see a thing. \n" + "There is a -door behind- you, there are two doors up ahead, a -left door- and a -right door-, and then a -long hall- ahead of you").toLowerCase;
+                }
+                switch(enterHall){
+                    case "inventory":
+                        alert(inventoryDisplay);
+                        DarkHall(0);
+                    break;
+                        
+                    case "door behind":
+                        GetUp();
+                    break;
+                    
+                    case "left door":
+                    break;
+                    
+                    case "right door":
+                        confirm("You tried to open the door, but it wouldn't budge. Try again?");
+                        DarkHall(0);
+                    break;
+                        
+                    case "long hall":
+                    break;
+                        
+                    default:
+                        alert("Unfortuneatly you have no idea what that means");
+                    break;
+                }
+            }// End of DarkHall
             
             
         </script>

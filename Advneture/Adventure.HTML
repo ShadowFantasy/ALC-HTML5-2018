@@ -9,6 +9,7 @@
         <p>Made by: Jaedon Lippert</p>
         <script>            
             //------GLOBAL VARIABLES DECLARED------//
+           var playerName = 0;
            var inventory = {
                 crowbar:0,
                 money:10.50,
@@ -30,7 +31,7 @@
                 
                 alert("You wake up in a small dark room... you hear a voice close by but you can't see who's there.");
                
-                var playerName = prompt("???: 'Hello? oh you're awake! Thank goodness, my name is Lily. What's your name?'");
+                playerName = prompt("???: 'Hello? oh you're awake! Thank goodness, my name is Lily. What's your name?'");
                 
                 var startGame = confirm("Lily: '" + playerName + "... That's a nice name. We should probably get out of here. Do you think you can get up?'");
                 if(startGame){
@@ -105,17 +106,17 @@
                         break;
                             //Message that returns when an invalid action is submitted, then restarts GetUp
                         default:
-                            alert("Unfortuneatly you have no idea what that means");
+                            alert("Unfortuneatly you have no idea what " + getUp + " means");
                             GetUp();
                             break;
                                 }// End of GetUp
             }//End of GetUp function
             function DarkHall(speak){
                 if(speak >= 1){
-                    var enterHall = prompt("You close the door behind you. There is a dark endless hallway infront of you and you can barely see a thing. \n" + "Lily:'I don't like it here. It's cold.' You felt the small metalic orb shiver in your pocket. 'Just go down straight down the hall. I don't think it's a good idea to stay here too long.' \n" + "There is a -door behind- you, there are two doors up ahead, a -left door- and a -right door-, and then a -long hall- ahead of you").toLowerCase;
+                    var enterHall = prompt("You close the door behind you. There is a dark endless hallway infront of you and you can barely see a thing. \n" + "Lily:'I don't like it here. It's cold.' You felt the small metalic orb shiver in your pocket. 'Just go down straight down the hall. I don't think it's a good idea to stay here too long.' \n" + "There is a -door behind- you, there are two doors up ahead, a -left door- and a -right door-, and then a -long hall- ahead of you").toLowerCase();
                 }
                 else{
-                    var enterHall = prompt("You close the door behind you. There is a dark endless hallway infront of you and you can barely see a thing. \n" + "There is a -door behind- you, there are two doors up ahead, a -left door- and a -right door-, and then a -long hall- ahead of you").toLowerCase;
+                    var enterHall = prompt("You close the door behind you. There is a dark endless hallway infront of you and you can barely see a thing. \n" + "There is a -door behind- you, there are two doors up ahead, a -left door- and a -right door-, and then a -long hall- ahead of you").toLowerCase();
                 }
                 switch(enterHall){
                     case "inventory":
@@ -128,18 +129,46 @@
                     break;
                     
                     case "left door":
+                        if(inventory.lily >= 1){
+                            alert("The door creeks open loudly, a mouse scurried across the floor with a squeak. You walk in and find yourself in a fairly spacious closet. There was light coming in from a barred up window that dimly illuminated the room. There was a -flashlight- that rested on the shelf, there was also a -grate- on the floor. It was too dark to see where it went though \n The -small orb- in your pocket was shaking. Lily:");
+                        }
+                        else{
+                            alert("The door creeks open loudly, a mouse scurried across the floor with a squeak. You walk in and find yourself in a fairly spacious closet. There was light coming in from a barred up window that dimly illuminated the room. There was a -flashlight- that rested on the shelf, there was also a -grate- on the floor. It was too dark to see where it went though");
+                        }
                     break;
                     
                     case "right door":
-                        confirm("You tried to open the door, but it wouldn't budge. Try again?");
-                        DarkHall(0);
+                        var openCounter = 0;
+                        var rightDoorOpen = false;
+                        do {
+                            openCounter ++;
+                            if(openCounter < 10){
+                                rightDoorOpen = confirm("You tried to open the door, but it wouldn't budge. Try again?");
+                            }
+                            else if(openCounter < 50){
+                                rightDoorOpen = confirm("Your arm felt sore and you were beginning to feel tired... keep trying?");
+                            }
+                            else if(inventory.lily >= 1){
+                                alert("You collapse on the ground from exhaustion and you begin to feel all of your hope to get this door open fall away. You give up and let darkness take your mind and turn you into a oblivion... \n Lily:'" + playerName + " you can't rest here! Please, get up... please...'\n ----THE END----");
+                                rightDoorOpen = false;
+                            }
+                            else{
+                                alert("You collapse on the ground from exhaustion and you begin to feel all of your hope to get this door open fall away. You give up and let darkness take your mind and turn you into a oblivion... \n \n ----THE END----");
+                                rightDoorOpen = false;
+                            }
+                        }
+                        while (rightDoorOpen);
+                        if(openCounter < 49){
+                            DarkHall();
+                        }
                     break;
                         
                     case "long hall":
                     break;
                         
                     default:
-                        alert("Unfortuneatly you have no idea what that means");
+                        alert("Unfortuneatly you have no idea what" + enterHall + "means");
+                        DarkHall();
                     break;
                 }
             }// End of DarkHall

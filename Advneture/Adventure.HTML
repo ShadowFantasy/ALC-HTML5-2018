@@ -13,12 +13,18 @@
            var inventory = {
                 crowbar:0,
                 money:10.50,
-                lily:0
+                lily:0,
+                flashlight:0
             }
            var inventoryDisplay = ("--Inventory--" + "\n" +
                                    "Crowbar: " + inventory.crowbar + "\n" +
                                    "Money: $" + inventory.money + "\n" +
+                                   "Flashlight:" + inventory.flashlight + "\n" +
+
                                    "-------------");
+           var invList = function(){
+               alert(inventoryDisplay);
+           }
             //------CODE------//
             //This starts the Start Function
             Start();
@@ -36,7 +42,7 @@
                 var startGame = confirm("Lily: '" + playerName + "... That's a nice name. We should probably get out of here. Do you think you can get up?'");
                 if(startGame){
                     //This starts the GetUp function
-                    GetUp();
+                    GetUp(0);
                 }
                 else{
                     alert("Lily: 'Okay, I'll let you rest for a while longer.' The silence returns and you close your eyes and go back into a deep and seemingly endless sleep.");
@@ -44,35 +50,47 @@
                 
             }//end of Start function
             //This creates the GetUp function
-            function GetUp(){
-                var getUp = prompt("You shakily get up, your eyes adjust to the darkness and you can make out what looks like a -small box-, a -crowbar-, and a boarded up -door-.").toLowerCase();
+            function GetUp(startType){
+                if(startType <= 0){
+                    var getUp = prompt("You get up shakily as your eyes adjust to the darkness enough to make out a -small box-, a -crowbar-, and a boarded up -door-.").toLowerCase();
+                }
+                else if(startType == 1){
+                    var getUp = prompt("You look around to see a -small box-, a -crowbar-, and a boarded up -door-.").toLowerCase();
+                }
+                else if(startType == 2 && inventory.lily >= 1){
+                    var getUp = prompt("You enter the room you had woken up in and see a -small box-, a -crowbar-, and a boarded up -door-. /n" + "Lily:'What are we doing back here? Don't you want to leave this place?'").toLowerCase();
+                }
+                else{
+                    var getUp = prompt("You enter the room you had woken up in and see a -small box-, a -crowbar-, and a boarded up -door-.").toLowerCase();
+                }
                     switch(getUp){
                             //Message that returns depending what the user types
                         case "inventory":
                             alert(inventoryDisplay);
-                            GetUp();
+                            GetUp(1);
                             break;
                             
                         case "small box": //Obtain Lily
-                            if(inventory.lily <= 0){
-                            var actionCrate = confirm("Something rustles within the box, open it?");
+                            if(inventory.lily != -1){
+                                var actionCrate = confirm("Something rustles within the box, open it?");
                                 if(actionCrate && inventory.crowbar >= 1){
                                     alert("A small mechanical ball shaped object floated of the box and hovered infront of you. \n" + "Lily: 'Thank you, for helping me I will try to guide you out of this place.' \n" + "The ball shapped machine hovered for a little long before putting itself in your pocket.");
                                     inventory.lily += 1;
                                 }
-                                else{
-                                    if(inventory.crowbar <= 0){
+                                else if(inventory.crowbar <= 0){
                                         alert("You don't have anything to open the box with.");
-                                    }
-                                    else{
-                                        alert("The small lonely box seemed to shiver in the cold air as you left it there.");
-                                    }
+                                }
+                                else{
+                                    alert("The small lonely box seemed to shiver in the cold air as you left it there.");
                                 }
                             }
-                            else{
-                                alert("The box was wide open and had nothing else inside");
+                            else if(inventory.lily >= 1){
+                                alert("The box was wide open and had nothing else inside.");
                             }
-                            GetUp();
+                            else{
+                                alert("You stare at the the empty box with cold dark eyes. You vaguely remember someones small voice, but it was quickly pushed from your mind.")
+                            }
+                            GetUp(1);
                         break;
                             
                         case "crowbar":
@@ -92,7 +110,7 @@
                             /*var pickUp = confirm("The crowbar looks like it could open something, pick it up?");
                             if (pickUp){
                             }*/
-                            GetUp();
+                            GetUp(1);
                         break;
                             
                         case "door":
@@ -101,13 +119,13 @@
                             }
                             else{
                                 alert("The wooden boards seem to be blocking you from leaving this room.");
-                                GetUp();
+                                GetUp(1);
                             }
                         break;
                             //Message that returns when an invalid action is submitted, then restarts GetUp
                         default:
                             alert("Unfortuneatly you have no idea what " + getUp + " means");
-                            GetUp();
+                            GetUp(1);
                             break;
                                 }// End of GetUp
             }//End of GetUp function
@@ -125,21 +143,17 @@
                     break;
                         
                     case "door behind":
-                        GetUp();
+                        GetUp(3);
                     break;
                     
                     case "left door":
-                        if(inventory.lily >= 1){
-                            alert("The door creeks open loudly, a mouse scurried across the floor with a squeak. You walk in and find yourself in a fairly spacious closet. There was light coming in from a barred up window that dimly illuminated the room. There was a -flashlight- that rested on the shelf, there was also a -grate- on the floor. It was too dark to see where it went though \n The -small orb- in your pocket was shaking. Lily:");
-                        }
-                        else{
-                            alert("The door creeks open loudly, a mouse scurried across the floor with a squeak. You walk in and find yourself in a fairly spacious closet. There was light coming in from a barred up window that dimly illuminated the room. There was a -flashlight- that rested on the shelf, there was also a -grate- on the floor. It was too dark to see where it went though");
-                        }
+                        Closet();
                     break;
                     
                     case "right door":
                         var openCounter = 0;
                         var rightDoorOpen = false;
+                        if(inventory.lily != -1){
                         do {
                             openCounter ++;
                             if(openCounter < 10){
@@ -158,6 +172,15 @@
                             }
                         }
                         while (rightDoorOpen);
+                        }
+                        //Able to open the right door when Lily is destroyed.
+                        else{
+                            alert("The door creeks open loudly, revealing a very dark room. When you go inside the door slams behind you. You tried to open the door, but it wouldn't budge. You couldn't see a thing.");
+                            if(inventory.flashlight >= 1){
+                                alert("You pulled out your flashlight and tried to use it, but it was no good either.");
+                            }
+                            alert("You felt around the walls of the room, it was moist and... fleshy feeling. You pulled your hand back, feeling a gooy substance slide down your arm. You walk around with your hands out stretched trying to find a way out. You slip on more goo and go face first into what felt like very dry grass... that is if grass could crawl up your face. Your body was becoming covering in whatever this poky texture was, you reached out and tried to grab it. It wrapped around your hand and you felt a sharp agonizing pain and snap as it was severed off of your arm. You began to panic and you tried to run but you were trapped and at the mercy of whatever this creature was. \n --THE END.--");
+                        }
                         if(openCounter < 49){
                             DarkHall();
                         }
@@ -167,13 +190,63 @@
                     break;
                         
                     default:
-                        alert("Unfortuneatly you have no idea what" + enterHall + "means");
+                        alert("Unfortuneatly you have no idea what " + enterHall + " means");
                         DarkHall();
                     break;
                 }
+                
+                function Closet(){
+                    if(inventory.lily >= 1){
+                        var closet = prompt("The door creeks open loudly, a mouse scurried across the floor with a squeak. You walk in and find yourself in a fairly spacious closet. There was light coming in from a barred up window that dimly illuminated the room. There was a -flashlight- that rested on the shelf, there was also a -grate- on the floor. It was too dark to see where it went though \n The -small orb- in your pocket was shaking. Lily: '" + playerName + " I don't like it. Come on we should go.'").toLowerCase();
+                        }
+                    else if(inventory.lily <= -1){
+                        var closet = prompt("The door creeks open loudly, a mouse scurried across the floor with a squeak. There was bits and pieces of metal and glass littering the floor. The room was uneasily silent. The small blue robotic eye still seemed to be staring at you despite it being broken. You walk in and find yourself in a fairly spacious closet. There was light coming in from a barred up window that dimly illuminated the room. There was a -flashlight- that rested on the shelf, there was also a -grate- on the floor. It was too dark to see where it went though.").toLowerCase();
+                        }
+                    else{
+                        var closet = alert("The door creeks open loudly, a mouse scurried across the floor with a squeak. You walk in and find yourself in a fairly spacious closet. There was light coming in from a barred up window that dimly illuminated the room. There was a -flashlight- that rested on the shelf, there was also a -grate- on the floor. It was too dark to see where it went though");
+                    }
+                            
+                        switch(closet){
+                            case "inventory":
+                                alert(inventoryDisplay);
+                            break;
+                            case "flashlight":
+                                var acquireFlashlight = confirm("You pick up the flashlight and push the button with your thumb causing the flashlight to flicker for a bit before shining a dim beam of light on the wall. \n Keep it?");
+                                if(acquireFlashlight){
+                                    alert("You now have a flashlight, though it seems that it won't last much longer.");
+                                    inventory.flashlight += 1;
+                                    }
+                                else{
+                                    alert("You turn off the flashlight and place it back on the shelf.");
+                                }
+                                Closet();
+                            break;
+                                
+                            case "small orb":
+                                if(inventory.lily >= 1){
+                                    alert("In an attempt to comfort Lily, you give the small orb a soft pat.\n" + "Lily:'" + playerName + " can we please go now? I don't want to be here any longer.'");
+                                    if(confirm("You take Lily out of your pocket and find your hand starting to shake for some reason. \n Set her down?")){
+                                        if(confirm("Crush her. \n Lily:'What are you doing?' The orb's mechanical blue eye focused on you.")){
+                                            alert("You lift your foot and slam it down on the orb, shattering it into pieces. \n Lily:'...'");
+                                            inventory.lily = -1;
+                                        }
+                                    else{
+                                        alert("You shake your head and let out a shaky breath. You got down on your knee and reached down and picked up the small orb and put her back into your shirt pocket.");
+                                    }
+                                    }
+                                }
+                                else{
+                                    alert("You hear a voice in the distance... atleast you thought you did.");
+                                }
+                            break;
+                                
+                            default:
+                                alert("Unfortuneatly you have no idea what " + closet + " means.");
+                            break;
+                        }
+                    
+                }
             }// End of DarkHall
-            
-            
         </script>
     </body>
 </html>

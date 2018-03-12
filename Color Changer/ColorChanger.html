@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Color Changer</title>
+        
+        <meta charset="utf-8"/>
+        <meta name="viewport" content"width=device width, intial-scale=1.0"/>
+        
+        <link rel="stylesheet" type="type/css" href="../css/style.css"/>
+        <style>
+            
+        </style>
+    </head>
+    <body>
+        <button id="change" class="btn">Change Color</button>
+        <div class="mdls">
+            <div class="modal" id="model">
+                <div class="main">
+                    <div class="left">
+                        <div class="filler"></div>
+                        <!--This is the first row of color choices-->
+                        <div id="row1">
+                            <!--Color 1-->
+                            <label>
+                                <input type="radio" name="colors" onclick="Preview()" value="#F44336"/>
+                                <div class="box red500"></div>
+                            </label>
+                            
+                            <!--Color 2-->
+                            <label>
+                                <input type="radio" name="colors" onclick="Preview()" value="#FF9800"/>
+                                <div class="box orange500"></div>
+                            </label>
+                            
+                            <!--Color 3-->
+                            <label>
+                                <input type="radio" name="colors" onclick="Preview()" value="#FFB3B"/>
+                                <div class="box yellow500"></div>
+                            </label>
+                        </div>
+                        
+                        <!--This is the second row of color choices-->
+                        <div id="row2">
+                            <!--Color 4-->
+                            <label>
+                                <input type="radio" name="colors" onclick="Preview()" value="#4CAF50"/>
+                                <div class="box green500"></div>
+                            </label>
+                            
+                            <!--Color 5-->
+                            <label>
+                                <input type="radio" name="colors" onclick="Preview()" value="#2196F3"/>
+                                <div class="box blue500"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            
+            
+        </script>
+    </body>
+</html>
